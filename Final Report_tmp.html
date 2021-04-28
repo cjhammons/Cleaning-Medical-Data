@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Final Report.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="what-are-the-primary-indicators-of-patient-readmission">What are the primary indicators of patient readmission?</h1>
+<p>Hospital readmission has become such an issue in recent years that Centers for Medicare and Medicaid Services (CMS) has begun to impose fines on hospitals excessive readmissions. Despite this, the percentage of hospitals fined for readmissions has increased every year. CMS reports 78% of hospitals received such fines in fiscal year 2015. [<em><strong>source</strong></em>] Our goal is to determine if there is a pattern among patients who are readmitted so that we can detect early on if a patient has a high readmission risk and take steps to combat it.</p>
+<h1 id="the-dataset">The Dataset</h1>
+<p>Our data consist of 10,000 patient records with 50 features. The features can be sub-divided into the following categories:</p>
+<ol>
+<li>Hospital system variables</li>
+<li>Patient Demographics</li>
+<li>Patient Health</li>
+<li>Visit details</li>
+<li>Patient Survey results</li>
+</ol>
+<h2 id="hostpital-system-variables">Hostpital system variables</h2>
+<ul>
+<li><strong>CaseOrder</strong>: Variable to preserve original order of the data file</li>
+<li><strong>Customer_id</strong>: ID unique to each patient</li>
+<li><strong>Interaction</strong>: ID of each patient interaction</li>
+<li><strong>UID</strong>: transaction ID</li>
+</ul>
+<h2 id="patient-demographics">Patient Demographics</h2>
+<p>These features give us basic demographical imformation about the patient. They are as follows:</p>
+<ul>
+<li><strong>City</strong>: City of residence as listed on the billing statement</li>
+<li><strong>State</strong>: Patient state of residence as listed on the billing statement</li>
+<li><strong>County</strong>: Patient county of residence as listed on the billing statement</li>
+<li><strong>Zip</strong>: Patient zip code of residence as listed on the billing statement</li>
+<li><strong>Lat, Lng</strong>: GPS coordinates of patient residence as listed on the billing statement</li>
+<li><strong>Population</strong>: Population within a mile radius of patient, based on census data</li>
+<li><strong>Area</strong>: Area type (rural, urban, suburban), based on unofficial census data</li>
+<li><strong>TimeZone</strong>: Time zone of patient residence based on patient’s sign-up information</li>
+<li><strong>Job</strong>: Job of the patient (or primary insurance holder) as reported in the admissions
+information</li>
+<li><strong>Children</strong>: Number of children in the patient’s household as reported in the admissions information</li>
+<li><strong>Age</strong>: Age of the patient as reported in admissions information</li>
+<li><strong>Education</strong>: Highest earned degree of patient as reported in admissions information</li>
+<li><strong>Employment</strong>: Employment status of patient as reported in admissions information</li>
+<li><strong>Income</strong>: Annual income of the patient (or primary insurance holder) as reported at
+time of admission</li>
+<li><strong>Marital</strong>: Marital status of the patient (or primary insurance holder) as reported on
+admission information</li>
+<li><strong>Gender</strong>: Customer self-identification as male, female, or nonbinary</li>
+</ul>
+<h2 id="patient-health">Patient Health</h2>
+<ul>
+<li><strong>VitD_levels</strong>: The patient’s vitamin D levels as measured in ng/mL</li>
+<li><strong>Full_meals_eaten</strong>: Number of full meals the patient ate while hospitalized (partial
+meals count as 0, and some patients had more than three meals in a day if requested)</li>
+<li><strong>VitD_supp</strong>: The number of times that vitamin D supplements were administered to the
+patient</li>
+<li><strong>Soft_drink</strong>: Whether the patient habitually drinks three or more sodas in a day (yes, no)</li>
+<li><strong>Complication_risk</strong>: Level of complication risk for the patient as assessed by a primary
+patient assessment (high, medium, low)</li>
+<li><strong>HighBlood</strong>: Whether the patient has high blood pressure (yes, no)</li>
+<li><strong>Stroke</strong>: Whether the patient has had a stroke (yes, no)</li>
+<li><strong>Overweight</strong>: Whether the patient is considered overweight based on age, gender, and
+height (yes, no)</li>
+<li><strong>Arthritis</strong>: Whether the patient has arthritis (yes, no)</li>
+<li><strong>Diabetes</strong>: Whether the patient has diabetes (yes, no)</li>
+<li><strong>Hyperlipidemia</strong>z: Whether the patient has hyperlipidemia (yes, no)</li>
+<li><strong>BackPain</strong>: Whether the patient has chronic back pain (yes, no)
+Anxiety: Whether the patient has an anxiety disorder (yes, no)</li>
+<li><strong>Allergic_rhinitis</strong>: Whether the patient has allergic rhinitis (yes, no)</li>
+<li><strong>Reflux_esophagitis</strong>: Whether the patient has reflux esophagitis (yes, no)</li>
+<li><strong>Asthma</strong>: Whether the patient has asthma (yes, no)</li>
+</ul>
+<h2 id="visit-details">Visit Details</h2>
+<ul>
+<li><strong>Doc_visits</strong>: Number of times the primary physician visited the patient during the initial
+hospitalization</li>
+<li><strong>ReAdmis</strong>: Whether the patient was readmitted within a month of release or not (yes, no).</li>
+<li><strong>Initial_admin</strong>: The means by which the patient was admitted into the hospital initially (emergency admission, elective admission, observation)</li>
+</ul>
+<h2 id="patient-survey-results">Patient Survey Results</h2>
+<p>Patients are given an eight queston survey in which they are asked to rate the importance of several factors/surfaces on a scale of 1 to 8 (1 = most important, 8 = least important)</p>
+<ul>
+<li><strong>Item1</strong>: Timely Admission</li>
+<li><strong>Item2</strong>: Timely treatment</li>
+<li><strong>Item3</strong>: Timely visits</li>
+<li><strong>Item4</strong>: Reliability</li>
+<li><strong>Item5</strong>: Options</li>
+<li><strong>Item6</strong>: Hours of treatment</li>
+<li><strong>Item7</strong>: Courteous staff</li>
+<li><strong>Item8</strong>: Evidence of active listening from doctor</li>
+</ul>
+<div style="page-break-after: always"></div>
+<h1 id="cleaning-the-data">Cleaning The Data</h1>
+<p>We'll be using python in JupyterLab for this project. Libraries included: pandas and numpy for basic data handling and math operations, scipy for calculating zscores, sklearn for Principle Component Analysis (PCA), and matplotlib for generating plots. All the code used can be found in <code>data-cleaning.ipynb</code>.</p>
+<p>First we import the raw csv file into a pandas DataFrame called <code>medical_raw</code> and run <code>medical_raw.info()</code> to see what we're dealing with.</p>
+<h2 id="inconsistent-column-names">Inconsistent column names</h2>
+<p>The first thing we notice is the columns of the dataset follow the naming convention of using underscores between words except for three outliers: TotalCharge, BackPain, HighBlood, and ReAdmis, which simply capitalizes the second word we'll rename the columns as suck:</p>
+<ul>
+<li>CaseOrder: Case_order</li>
+<li>TotalCharge: Total_charge</li>
+<li>BackPain: Back_pain</li>
+<li>HighBlood: High_blood</li>
+<li>ReAdmis: Re_admis</li>
+</ul>
+<h2 id="missing-values">Missing Values</h2>
+<p>Upon initial inspection of the dataset we find that the following columns contain null values:</p>
+<ul>
+<li>Children</li>
+<li>Age</li>
+<li>Income</li>
+<li>soft_drink</li>
+<li>Overweight</li>
+<li>Anxiety</li>
+<li>Initial_days</li>
+</ul>
+<p>Before we continue we shall find suitable replacements for these values using the the <code>fillna()</code> function of DataFrames.</p>
+<h3 id="methodology">Methodology</h3>
+<p>Children, Age, Income, and Initial_days are numeric features, so we will fill the null values with the mean of the non-null values. The line of code that does this looks like:</p>
+<pre class="hljs"><code><div>medical_raw[<span class="hljs-string">'Children'</span>].fillna(round(medical_raw[<span class="hljs-string">'Children'</span>].mean()), inplace=<span class="hljs-literal">True</span>)
+</div></code></pre>
+<p>Soft_drink, Overweight, and Anxiety are boolean features. They are either &quot;Yes&quot; and &quot;No&quot; or &quot;1&quot; and &quot;0&quot; (we'll fix this inconsistency later). These will be replaced with the mode of the non-null values. Like this:</p>
+<pre class="hljs"><code><div>medical_raw[<span class="hljs-string">'Overweight'</span>].fillna(medical_raw[<span class="hljs-string">'Overweight'</span>].mode()[<span class="hljs-number">0</span>], inplace=<span class="hljs-literal">True</span>)
+</div></code></pre>
+<p>We now have a fully non-null dataset!</p>
+<h3 id="limitations">Limitations</h3>
+<p>While replacing the missing values with the mean does not disrupt the consistency of the column as a whole it can provide misleading data when a specific observation is looked at. This is still preferable to a null value.</p>
+<h2 id="outliers">Outliers</h2>
+<h3 id="methodology">Methodology</h3>
+<p>In order to find outliers we will be calculating <em>zscores</em>, or <em>zvalues</em> for the numeric fields. Once we have standardized z-scores we'll use the standardized values to easily remove the outliers.</p>
+<p>The numeric fields we'll be getting zscores for are:</p>
+<ul>
+<li>Population</li>
+<li>Children</li>
+<li>Age</li>
+<li>Income</li>
+<li>Doc_visits</li>
+<li>Full_meals_eaten</li>
+<li>Initial_days</li>
+<li>Total_charge</li>
+<li>Additional Charges</li>
+</ul>
+<p>We drop all entries that have outliers (below -3 and above 3). This brings our total number of entries down to 9,037 from 10,000. Just under 10% data loss.</p>
+<h3 id="limitations">Limitations</h3>
+<p>Losing almost 10% of the dataset is not ideal. We may decide that a certain amount of missing values is workable or that we only remove an observation if it is missing multiple values.</p>
+<h1 id="principle-component-analysis">Principle Component Analysis</h1>
+<p><img src="file:///Users/curtishammons/projects/WGU/D206-Python-Project/plots/pca_scree.png" alt=""></p>
+
+</body>
+</html>

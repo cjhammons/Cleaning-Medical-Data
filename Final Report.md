@@ -6,10 +6,18 @@ Hospital readmission has become such an issue in recent years that Centers for M
 
 Our data consist of 10,000 patient records with 50 features. The features can be sub-divided into the following categories: 
 
-1. Patient Demographics
-2. Patient Health
-3. Visit details
-4. Patient Survey results
+1. Hospital system variables
+2. Patient Demographics
+3. Patient Health
+4. Visit details
+5. Patient Survey results
+
+## Hostpital system variables
+
+- **CaseOrder**: Variable to preserve original order of the data file
+- **Customer_id**: ID unique to each patient
+- **Interaction**: ID of each patient interaction
+- **UID**: transaction ID
 
 ## Patient Demographics
 
@@ -80,37 +88,82 @@ Patients are given an eight queston survey in which they are asked to rate the i
 - **Item7**: Courteous staff
 - **Item8**: Evidence of active listening from doctor
 
-# Cleaning The Data: The Process
+# Cleaning The Data
 
-## Finding Anomolies
+We'll be using python in JupyterLab for this project. Libraries included: pandas and numpy for basic data handling and math operations, scipy for calculating zscores, sklearn for Principle Component Analysis (PCA), and matplotlib for generating plots. All the code used can be found in ``data-cleaning.ipynb``.
 
-In order to find outliers we will be calculating *z-values* (or *z-scores*) as described in *Data Science using Python and R* [***source***]. A *z-value* for a given feature is a scaled value aimed to simplify the data. A typical scale used is -3 to 3 for regular values, and anything greater than 3 or less than -3 is considered an outlier. It can be thought of as similar to a bell curve on a graph, but expressed in only numerics. We'll be using this approach because it is an effective way to standardize data and makes spotting outliers trivial. 
+First we import the raw csv file into a pandas DataFrame called ``medical_raw`` and run ``medical_raw.info()`` to see what we're dealing with.
 
-Once we have standardized z-scores we'll use graphs such as histrograms and boxplots to visualize them.
+## Inconsistent column names
 
-## Tools Used
+The first thing we notice is the columns of the dataset follow the naming convention of using underscores between words except for three outliers: TotalCharge, BackPain, HighBlood, and ReAdmis, which simply capitalizes the second word we'll rename the columns as suck:
 
-R will be the language of choice for this project, purely because it is the scientific language that I am most familiar with. It's extensive *tidyverse* library, in particular the *dplyr* and *ggplot2* packages, makes many of the calculations and analysis we plan to do possible in only a few lines of code. For example, as we will see in the next section, the *dplyr* package from *tidyverse* allows us to calculate *z-values* and add them to our dataset in only one line of code! 
+- CaseOrder: Case_order
+- TotalCharge: Total_charge
+- BackPain: Back_pain
+- HighBlood: High_blood
+- ReAdmis: Re_admis
 
-## Code
+## Missing Values
 
+Upon initial inspection of the dataset we find that the following columns contain null values:
 
+- Children
+- Age
+- Income
+- soft_drink
+- Overweight
+- Anxiety
+- Initial_days
 
-# Cleaning Results
+Before we continue we shall find suitable replacements for these values using the the ``fillna()`` function of DataFrames.
 
-## Findings
+### Methodology
 
-## Mitigation 
+Children, Age, Income, and Initial_days are numeric features, so we will fill the null values with the mean of the non-null values. The line of code that does this looks like:
+```python
+medical_raw['Children'].fillna(round(medical_raw['Children'].mean()), inplace=True)
+```
 
-### Methods
+Soft_drink, Overweight, and Anxiety are boolean features. They are either "Yes" and "No" or "1" and "0" (we'll fix this inconsistency later). These will be replaced with the mode of the non-null values. Like this:
 
-### Code
+```python
+medical_raw['Overweight'].fillna(medical_raw['Overweight'].mode()[0], inplace=True)
+```
 
-## Summary of outcomes
+We now have a fully non-null dataset!
 
-## Limitations
+### Limitations
 
-# PCA
+While replacing the missing values with the mean does not disrupt the consistency of the column as a whole it can provide misleading data when a specific observation is looked at. This is still preferable to a null value.
+
+## Outliers
+
+### Methodology
+In order to find outliers we will be calculating *zscores*, or *zvalues* for the numeric fields. Once we have standardized z-scores we'll use the standardized values to easily remove the outliers.
+
+The numeric fields we'll be getting zscores for are:
+
+- Population
+- Children
+- Age
+- Income
+- Doc_visits
+- Full_meals_eaten
+- Initial_days
+- Total_charge
+- Additional Charges
+
+We drop all entries that have outliers (below -3 and above 3). This brings our total number of entries down to 9,037 from 10,000. Just under 10% data loss.
+
+### Limitations
+
+Losing almost 10% of the dataset is not ideal. We may decide that a certain amount of missing values is workable or that we only remove an observation if it is missing multiple values.
+
+# Principle Component Analysis
+
+![](./plots/pca_scree.png) 
+
 
 
 
