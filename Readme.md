@@ -5,7 +5,7 @@ Cleaning Medical Data
 
 This paper details the process of cleaning a medical dataset for use by a data science team. We will start with a potential question to be answered by the data science team and going over the present data. Then we will clean the data by finding suitable replacement for missing values and removing outliers. Finally, we will perform Principle Component Analysis (PCA) on the cleaned data set.
 
-The full code used in this project can be found in the included notebook data-cleaning.ipynb
+The full code used in this project can be found in the included notebook ``data-cleaning.ipynb``
 
 # Question: What are the primary indicators of patient readmission?
 
